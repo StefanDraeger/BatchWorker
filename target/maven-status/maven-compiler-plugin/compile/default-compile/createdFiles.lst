@@ -1,0 +1,10 @@
+de\draegerit\batchworker\util\CSVSensorFieldSetMapper.class
+de\draegerit\batchworker\util\CustomItemProcessor.class
+de\draegerit\batchworker\writer\CSVWriter.class
+de\draegerit\batchworker\writer\PDFWriter.class
+de\draegerit\batchworker\BatchConfiguration$1.class
+de\draegerit\batchworker\Application.class
+de\draegerit\batchworker\BatchConfiguration.class
+de\draegerit\batchworker\entity\SensorEntity.class
+de\draegerit\batchworker\JobCompletionNotificationListener.class
+de\draegerit\batchworker\util\CSVSensorTokenizer.class
