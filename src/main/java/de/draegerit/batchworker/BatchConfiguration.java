@@ -1,11 +1,5 @@
 package de.draegerit.batchworker;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URI;
-import java.net.URL;
-
 import javax.sql.DataSource;
 
 import org.springframework.batch.core.Job;
@@ -19,9 +13,7 @@ import org.springframework.batch.item.file.mapping.DefaultLineMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.FileSystemResource;
-import org.springframework.core.io.Resource;
 
 import de.draegerit.batchworker.entity.SensorEntity;
 import de.draegerit.batchworker.util.CSVSensorFieldSetMapper;
@@ -34,7 +26,7 @@ import de.draegerit.batchworker.writer.CSVWriter;
 public class BatchConfiguration {
 
 	private static final int CHUNK_SIZE = 0;
-	private static final String INPUT_FILE = "./data.csv";
+	private static final String INPUT_FILE = "./csv/data.csv";
 	private static final String STEP1 = "step1";
 	private static final String IMPORT_JOB = "importJob";
 
