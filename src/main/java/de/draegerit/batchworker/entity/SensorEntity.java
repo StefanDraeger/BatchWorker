@@ -1,13 +1,22 @@
 package de.draegerit.batchworker.entity;
 
+/**
+ * Klasse für einen Eintrag in einer CSV Datei.
+ * @author Stefan Draeger
+ *
+ */
 public class SensorEntity {
 
+	//Vorlaufende Nummer
 	private long id;
-	
+
+	//Beschreibung
 	private String description;
-	
+
+	//Wert
 	private double value;
-	
+
+	//Zeitstempel des Wertes
 	private long timestamp;
 
 	public long getId() {
@@ -41,6 +50,6 @@ public class SensorEntity {
 	public void setTimestamp(long timestamp) {
 		this.timestamp = timestamp;
 	}
-	
-	
+
+
 }

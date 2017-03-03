@@ -23,10 +23,6 @@ public class CSVWriter implements ItemWriter<SensorEntity> {
 
 	private long timestamp = 0L;
 
-	public CSVWriter() {
-		this.timestamp = System.currentTimeMillis();
-	}
-
 	public CSVWriter(long timestamp) {
 		this.timestamp = timestamp;
 	}
