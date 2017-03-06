@@ -6,6 +6,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class Application {
 
+	private Application() {
+
+	}
+
 	/**
 	 * Startmethode der Java Anwendung
 	 *
