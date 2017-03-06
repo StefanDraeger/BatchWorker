@@ -25,7 +25,9 @@ public class CSVWriter implements ItemWriter<SensorEntity> {
 
 	/**
 	 * Konstruktor
-	 * @param timestamp - der Zeitpunkt wann die Stapelverarbeitung gestartet wurde
+	 *
+	 * @param timestamp
+	 *            - der Zeitpunkt wann die Stapelverarbeitung gestartet wurde
 	 */
 	public CSVWriter(long timestamp) {
 		this.timestamp = timestamp;
@@ -46,7 +48,9 @@ public class CSVWriter implements ItemWriter<SensorEntity> {
 
 	/**
 	 * Liefert eine Zeile für die CSV Datei
-	 * @param s - die {@link SensorEntity}
+	 *
+	 * @param s
+	 *            - die {@link SensorEntity}
 	 * @return ein String Wert im Format {@link CSVWriter#STR_FORMAT}
 	 */
 	private CharSequence getCSVLine(SensorEntity s) {

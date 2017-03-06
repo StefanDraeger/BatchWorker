@@ -8,7 +8,9 @@ public class Application {
 
 	/**
 	 * Startmethode der Java Anwendung
-	 * @param args - Parameter von der Konsole
+	 *
+	 * @param args
+	 *            - Parameter von der Konsole
 	 * @throws Exception
 	 */
 	public static void main(String[] args) throws Exception {
