@@ -23,6 +23,14 @@ public class CSVWriter implements ItemWriter<SensorEntity> {
 
 	private long timestamp = 0L;
 
+
+	/**
+	 * Parameterloser Konstruktor für die XML Konfiguration
+	 */
+	public CSVWriter(){
+		this(System.currentTimeMillis()); //Übergabe des aktuellen Timestamps
+	}
+
 	/**
 	 * Konstruktor
 	 *
