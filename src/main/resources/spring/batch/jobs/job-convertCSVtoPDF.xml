@@ -10,6 +10,14 @@
 	<bean id="sensorentity" class="de.draegerit.batchworker.entity.SensorEntity"
 		scope="prototype" />
 
+<!-- Diese Bean wird nun benötigt wenn der Dateiname für die Stapelverarbeitung über eine Propertiesdatei geladen werden soll. -->
+<!--
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="location">
+			<value>converter.properties</value>
+		</property>
+	</bean>
+-->
 	<batch:job id="convertCSVtoPDF">
 		<batch:step id="step1">
 			<batch:tasklet>
@@ -22,13 +30,19 @@
 	</batch:job>
 
 	<!-- Definieren des FileReaders -->
-	<bean id="csvFileReader" class="org.springframework.batch.item.file.FlatFileItemReader">
+	<bean id="csvFileReader" class="org.springframework.batch.item.file.FlatFileItemReader" scope="step">
 		<!-- Der Dateiname der zu verarbeitenden Datei  -->
 		<!-- In diesem Beispiel befindet sich die Datei im Pfad src\main\resources\csv\data.csv  -->
-		<property name="resource" value="classpath:csv/data.csv" />
+		<!-- property name="resource" value="classpath:csv/data.csv" / -->
 
-		<!-- In diesem Beispiel befindet sich die Datei im Pfad src\main\resources\csv\data.csv  -->
-		<!-- property name="resource" value="classpath:csv/data.csv" /-->
+		<!-- In diesem Beispiel befindet sich die Datei im Pfad C:\csv\data.csv  -->
+		<!-- property name="resource" value="file:c:\\csv\\data.csv" / -->
+
+		<!-- In diesem Beispiel befindet sich die Pfadangabe zur Datei in der Propertiesdatei  -->
+		<!-- property name="resource" value="${filename}" / -->
+
+		<!-- In diesem Beispiel befindet sich die Pfadangabe zur Datei in der Propertiesdatei  -->
+		<property name="resource" value="#{jobParameters[filename]}" />
 
 
 		<property name="lineMapper">
