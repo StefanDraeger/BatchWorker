@@ -1,0 +1,75 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:batch="http://www.springframework.org/schema/batch" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/batch
+		http://www.springframework.org/schema/batch/spring-batch-2.2.xsd
+		http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
+
+	<import resource="../config/context.xml" />
+
+	<bean id="sensorentity" class="de.draegerit.batchworker.entity.SensorEntity"
+		scope="prototype" />
+
+<!-- Diese Bean wird nun benötigt wenn der Dateiname für die Stapelverarbeitung über eine Propertiesdatei geladen werden soll. -->
+<!--
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="location">
+			<value>converter.properties</value>
+		</property>
+	</bean>
+-->
+	<batch:job id="convertCSVtoPDF">
+		<batch:step id="step1">
+			<batch:tasklet>
+				<!-- Chunk Size -->
+				<batch:chunk reader="csvFileReader" writer="cvsFileItemWriter"
+					processor="customItemProcessor" commit-interval="1">
+				</batch:chunk>
+			</batch:tasklet>
+		</batch:step>
+	</batch:job>
+
+	<!-- Definieren des FileReaders -->
+	<bean id="csvFileReader" class="org.springframework.batch.item.file.FlatFileItemReader" scope="step">
+		<!-- Der Dateiname der zu verarbeitenden Datei  -->
+		<!-- In diesem Beispiel befindet sich die Datei im Pfad src\main\resources\csv\data.csv  -->
+		<!-- property name="resource" value="classpath:csv/data.csv" / -->
+
+		<!-- In diesem Beispiel befindet sich die Datei im Pfad C:\csv\data.csv  -->
+		<!-- property name="resource" value="file:c:\\csv\\data.csv" / -->
+
+		<!-- In diesem Beispiel befindet sich die Pfadangabe zur Datei in der Propertiesdatei  -->
+		<!-- property name="resource" value="${filename}" / -->
+
+		<!-- In diesem Beispiel befindet sich die Pfadangabe zur Datei in der Propertiesdatei  -->
+		<property name="resource" value="#{jobParameters[filename]}" />
+
+
+		<property name="lineMapper">
+			<bean class="org.springframework.batch.item.file.mapping.DefaultLineMapper">
+				<property name="lineTokenizer">
+					<bean
+						class="org.springframework.batch.item.file.transform.DelimitedLineTokenizer">
+						<!-- Definieren des Werte in der CSV Datei -->
+						<property name="names" value="id,description,value,timestamp" />
+					</bean>
+				</property>
+				<property name="fieldSetMapper">
+					<bean
+						class="org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper">
+						<!-- Das Mapping auf die Entity -->
+						<property name="prototypeBeanName" value="sensorentity" />
+					</bean>
+				</property>
+
+			</bean>
+		</property>
+	</bean>
+
+	<!-- ItemProcessor für die Verarbeitung der gelesenen Items -->
+	<bean id="customItemProcessor" class="de.draegerit.batchworker.util.CustomItemProcessor" />
+
+	<!-- Der CSVWriter für die Ausgabe -->
+	<bean id="cvsFileItemWriter" class="de.draegerit.batchworker.writer.CSVWriter" />
+
+</beans>
